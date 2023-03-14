@@ -1,5 +1,8 @@
 <script lang="ts">
 export default{
+  props: {
+    editing: Boolean
+  },
   data(){
     return {
       text:''
@@ -10,7 +13,8 @@ export default{
 
 <template>
   <div class="card">
-    <input v-model="text"> 
+    <input v-if='editing' v-model="text"> 
+    <input v-else v-model="text" readonly> 
   </div>
 </template>
 
