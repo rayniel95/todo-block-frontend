@@ -2,7 +2,7 @@
 export default{
   data(){
     return {
-      msg: ''
+      text:''
     }
   }
 }
@@ -10,11 +10,7 @@ export default{
 
 <template>
   <div class="card">
-    <button type="button" @click="count++">count is {{ count }}</button>
-    <p>
-      Edit
-      <code>components/HelloWorld.vue</code> to test HMR
-    </p>
+    <input v-model="text"> 
   </div>
 </template>
 
