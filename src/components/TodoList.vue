@@ -8,13 +8,15 @@ class TodoTaskObject {
   ) {}
 }
 
+let id = 0
+
 export default {
   components:{
     TodoTask
   },
   data(){
     return {
-      todos: [new TodoTaskObject(false, 0)]
+      todos: [new TodoTaskObject(false, id)]
     }
   },
   methods:{
@@ -22,7 +24,11 @@ export default {
       this.todos.push(
         new TodoTaskObject(true, this.todos.length-1)
       )
-    }
+      id++
+    },
+    deleteTodo(id: number){
+      this.todos = this.todos.filter((val: TodoTaskObject)=>val.id !==id)
+    }   
   }
 }
 </script>
@@ -32,8 +38,10 @@ export default {
     <ul>
       <li v-for="todo in todos">
         <TodoTask :editing="todo.isEditing"></TodoTask>
-        <button @click="todo.isEditing = !todo.isEditing">edit</button>
-        <button>delete</button>
+        <button @click="todo.isEditing = !todo.isEditing">
+          {{ todo.isEditing? 'done': 'edit' }}
+        </button>
+        <button @click="deleteTodo(todo.id)">delete</button>
       </li>
     </ul>
   </div>
