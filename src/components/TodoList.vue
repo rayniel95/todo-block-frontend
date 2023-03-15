@@ -8,7 +8,7 @@ class TodoTaskObject {
   ) {}
 }
 
-let id = 0
+let id = 1
 
 export default {
   components:{
@@ -21,13 +21,14 @@ export default {
   },
   methods:{
     addTodo(){
-      this.todos.push(
-        new TodoTaskObject(true, this.todos.length-1)
-      )
       id++
+      this.todos.push(
+        new TodoTaskObject(true, id)
+      )
     },
-    deleteTodo(id: number){
-      this.todos = this.todos.filter((val: TodoTaskObject)=>val.id !==id)
+    deleteTodo(todoId: TodoTaskObject){
+      console.log(todoId.id)
+      this.todos = this.todos.filter((val: TodoTaskObject)=>val.id !==todoId.id)
     }   
   }
 }
@@ -35,13 +36,16 @@ export default {
 
 <template>
   <div class="card">
+    <button @click="addTodo">Add todo</button>
     <ul>
-      <li v-for="todo in todos">
+      <li v-for="todo in todos" :key="todo.id">
         <TodoTask :editing="todo.isEditing"></TodoTask>
         <button @click="todo.isEditing = !todo.isEditing">
           {{ todo.isEditing? 'done': 'edit' }}
         </button>
-        <button @click="deleteTodo(todo.id)">delete</button>
+        <button @click="deleteTodo(todo)">
+          delete
+        </button>
       </li>
     </ul>
   </div>
